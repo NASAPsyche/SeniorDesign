@@ -5,9 +5,9 @@ using UnityEngine;
 // Will need a FPSController [Standard Assets > Characters]
 public class CameraZoom : MonoBehaviour
 {
-    public int zoomIn = 5;
-    public int zoomOut = 5;
-    
+    private int zoomIn = 5;
+    private int zoomOut = 5;
+
     // Update is called once per frame
     void Update()
     {
