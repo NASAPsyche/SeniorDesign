@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Will need a FPSController [Standard Assets > Characters]
+// Created FPSController [Standard Assets > Characters]
 public class CameraZoom : MonoBehaviour
 {
     private int zoomIn = 5;
