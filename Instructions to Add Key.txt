@@ -1,0 +1,5 @@
+1. Import Plane called key into AsteroidE
+2. Put it as a child of the main camera. From my research (can't test zoom on my computer), when a parent moves the child will move as well. This stays true at least for the rotate function.
+2. Place into the bottom left hand corner of your camera view.
+ith the camera and stays the same direction away.
+4. This can be repeated for any of the necessary keys including ruler and compass. 
