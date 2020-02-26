@@ -19,7 +19,9 @@ public class rotations : MonoBehaviour
 
             if(Vector3.Dot(transform.up, Vector3.up) >= 0)
             {
-                transform.Rotate(transform.up, -Vector3.Dot(mPosDelta, Camera.main.transform.right), Space.World);
+                //transform.Rotate(transform.up, -Vector3.Dot(mPosDelta, Camera.main.transform.right), Space.World);
+                // removed the - in Vector3.Dot(mPosDelta, Camera.main.transform.right)
+                transform.Rotate(transform.up, Vector3.Dot(mPosDelta, Camera.main.transform.right), Space.World);
             }
             else
             {
