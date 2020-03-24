@@ -1,17 +1,21 @@
 using System.Collections;
-
 using System.Collections.Generic;
-
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.CoreModule;
 using UnityEngine.UI;
 
+//[System.Serializable] allows inspector to use this?
 public class UIController : MonoBehaviour
 {
-	//Set up a game object for the canvas and various UI elements
-	public GameObject MainUI_Canvas = new GameObject();
-	GameObject RulerUI = new GameObject();
-	GameObject HideRuler = new GameObject();
+	//render mode = screen space - camera(asteroid camera)?
 
+    //Set up a game object for the canvas and various UI elements
+	Canvas MainUI_Canvas; 
+
+    GameObject RulerUI = new GameObject();
+	//GameObject HideRuler = new GameObject();
+    
 	//Make the UI elements a child of the canvas
 	RulerUI.transform.SetParent(MainUI_Canvas.transform, false);
 
