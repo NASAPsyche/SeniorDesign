@@ -4,35 +4,17 @@ using UnityEngine;
 
 public class rotations : MonoBehaviour
 {
-    // Previous position of mouse in last frame
-    Vector3 mPrevPos = Vector3.zero;
-
-    // Change in position from last frame to current
-    Vector3 mPosDelta = Vector3.zero;
+    public float rotSpeed = 20;
 
     private void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            // Change in position = current - last frame position
-            mPosDelta = Input.mousePosition - mPrevPos;
+            float rotX = Input.GetAxis("Mouse X") * rotSpeed * Mathf.Deg2Rad;
+            float rotY = Input.GetAxis("Mouse Y") * rotSpeed * Mathf.Deg2Rad;
 
-            if(Vector3.Dot(transform.up, Vector3.up) >= 0)
-            {
-                //transform.Rotate(transform.up, -Vector3.Dot(mPosDelta, Camera.main.transform.right), Space.World);
-                // removed the - in Vector3.Dot(mPosDelta, Camera.main.transform.right)
-                transform.Rotate(transform.up, Vector3.Dot(mPosDelta, Camera.main.transform.right), Space.World);
-            }
-            else
-            {
-                transform.Rotate(transform.up, Vector3.Dot(mPosDelta, Camera.main.transform.right), Space.World);
-            }
-
-            transform.Rotate(Camera.main.transform.right, Vector3.Dot(mPosDelta, Camera.main.transform.up), Space.World);
+            transform.RotateAround(Vector3.up, -rotX);
+            transform.RotateAround(Vector3.right, -rotY);
         }
-        // Updating Prev position
-        mPrevPos = Input.mousePosition;
     }
 }
-
-
