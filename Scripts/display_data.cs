@@ -5,46 +5,33 @@ using UnityEngine;
 
 public class display_data : MonoBehaviour
 {
-    // 3D Components
-    public GameObject _Calpurnia;
-    public GameObject _Marcia;
-    public GameObject _Minucia;
-    public GameObject _Caparronia;
-    public GameObject _Domitia;
-
-    // Information Panels 
-    public GameObject CalpurniaIP;
-    public GameObject MarciaIP;
-    public GameObject MinuciaIP;
-    public GameObject CaparroniaIP;
-    public GameObject DomitiaIP;
+    // 3D Components & Information Panels
+    public GameObject[] Craters;
+    public GameObject[] InformationPanels;
 
     void Start()
     {
-        CalpurniaIP.SetActive(false);
-        MarciaIP.SetActive(false);
-        MinuciaIP.SetActive(false);
-        CaparroniaIP.SetActive(false);
-        DomitiaIP.SetActive(false);
-
-        _Calpurnia.SetActive(false);
-        _Marcia.SetActive(false);
-        _Minucia.SetActive(false);
-        _Caparronia.SetActive(false);
-        _Domitia.SetActive(false);
+        foreach (GameObject crater in Craters)
+        {
+            crater.SetActive(false);
+        }
+        foreach (GameObject infoPanel in InformationPanels)
+        {
+            infoPanel.SetActive(false);
+        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown("h"))
-        {    
+        {
             // Toggle DataPoints 
             print("h key was pressed");
-            ToggleDataPoints(_Calpurnia);
-            ToggleDataPoints(_Marcia);
-            ToggleDataPoints(_Minucia);
-            ToggleDataPoints(_Caparronia);
-            ToggleDataPoints(_Domitia);
+
+            foreach (GameObject crater in Craters)
+            {
+                ToggleDataPoints(crater);
+            }
         }
         if (Input.GetMouseButtonDown(1)) 
         {
@@ -57,66 +44,25 @@ public class display_data : MonoBehaviour
                 {
                     PrintName(hit.transform.gameObject);
 
-                    // Calpurnia Crater 
-                    if (hit.transform.gameObject == _Calpurnia)
+                    // Hide or show information panels
+                    for (int i = 0; i < Craters.Length; i++)
                     {
-                        CalpurniaIP.SetActive(true);
-                        Time.timeScale = 0f;
-                    }
-                    else
-                    {
-                        CalpurniaIP.SetActive(false);
-                        Time.timeScale = 1f;
-                    }
-                    // Marcia Crater 
-                    if (hit.transform.gameObject == _Marcia)
-                    {
-                        MarciaIP.SetActive(true);
-                        Time.timeScale = 0f;
-                    }
-                    else
-                    {
-                        MarciaIP.SetActive(false);
-                        Time.timeScale = 1f;
-                    }
-                    // Minucia Crater 
-                    if (hit.transform.gameObject == _Minucia)
-                    {
-                        MinuciaIP.SetActive(true);
-                        Time.timeScale = 0f;
-                    }
-                    else
-                    {
-                        MinuciaIP.SetActive(false);
-                        Time.timeScale = 1f;
-                    }
-                    // Caparronia Crater 
-                    if (hit.transform.gameObject == _Caparronia)
-                    {
-                        CaparroniaIP.SetActive(true);
-                        Time.timeScale = 0f;
-                    }
-                    else
-                    {
-                        CaparroniaIP.SetActive(false);
-                        Time.timeScale = 1f;
-                    }
-                    // Domitia Crater 
-                    if (hit.transform.gameObject == _Domitia)
-                    {
-                        DomitiaIP.SetActive(true);
-                        Time.timeScale = 0f;
-                    }
-                    else
-                    {
-                        DomitiaIP.SetActive(false);
-                        Time.timeScale = 1f;
+                        if (hit.transform.gameObject == Craters[i])
+                        {
+                            InformationPanels[i].SetActive(true);
+                            Craters[i].GetComponent<Renderer>().material.color = Color.yellow;
+                        }
+                        else
+                        {
+                            InformationPanels[i].SetActive(false);
+                            Craters[i].GetComponent<Renderer>().material.color = Color.white;
+                        }
                     }
                 }
             }
         }
     }
-    // TODO: create method to not use if/else 
+
     private void PrintName(GameObject go)
     {
         print(go.name);
