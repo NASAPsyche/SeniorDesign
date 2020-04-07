@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class display_data : MonoBehaviour
 {
-    // 3D Components & Information Panels
+    // 3D Components, Information Panels, Compass
     public GameObject[] Craters;
     public GameObject[] InformationPanels;
+    public GameObject Compass;
 
     void Start()
     {
+        // DataPoints(Craters), Information Panels, Compass, are hidden at start
         foreach (GameObject crater in Craters)
         {
             crater.SetActive(false);
@@ -19,19 +21,21 @@ public class display_data : MonoBehaviour
         {
             infoPanel.SetActive(false);
         }
+        Compass.SetActive(false);
     }
 
     void Update()
     {
         if (Input.GetKeyDown("h"))
         {
-            // Toggle DataPoints 
             print("h key was pressed");
 
+            // Toggle DataPoints & Compass
             foreach (GameObject crater in Craters)
             {
-                ToggleDataPoints(crater);
+                ToggleObjects(crater);
             }
+            ToggleObjects(Compass);
         }
         if (Input.GetMouseButtonDown(1)) 
         {
@@ -68,7 +72,7 @@ public class display_data : MonoBehaviour
         print(go.name);
     }
 
-    private void ToggleDataPoints(GameObject game_obj)
+    private void ToggleObjects(GameObject game_obj)
     {
         if (game_obj.activeSelf == true)
         {
