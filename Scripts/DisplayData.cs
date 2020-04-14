@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
-public class display_data : MonoBehaviour
+public class DisplayData : MonoBehaviour
 {
     // 3D Components, Information Panels, Compass
     public GameObject[] Craters;
