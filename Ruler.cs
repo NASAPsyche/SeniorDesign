@@ -10,7 +10,7 @@ public class Ruler : MonoBehaviour {
 	public Image uiRuler;
 	public Camera cam;
 	public GameObject Vesta;
-	private float VestaRadius =  530.0F;
+	private float VestaDiameter =  530.0F;
 
 	void Start(){
 		if(cam == null){cam = Camera.main;}
@@ -19,7 +19,7 @@ public class Ruler : MonoBehaviour {
 	void Update(){
 		cameraDistance = Vector3.Distance(cam.transform.position, Vesta.transform.position);
 
-	        RScale = VestaCircumference/(cameraDistance); 
+	        RScale = VestaDiameter/(cameraDistance); 
 			//width of vesta from perspective of camera
 		RScale *= (uiRuler.sprite.rect.width/cam.pixelRect.width); 
 			//multiplied by the percentage of screen space taken up by the ruler
