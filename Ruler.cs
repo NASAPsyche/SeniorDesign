@@ -6,16 +6,24 @@ using System;
 
 public class Ruler : MonoBehaviour { 
 	public Text CurrentRulerLength;
-	float  RScale;
-	double fov;
+	float  RScale, cameraDistance;
+	public Image uiRuler;
 	public Camera cam;
-	//private float VestaRadius =  38,024.6km/2;
-	//private float (constant to mulitply fov and radius with to make distance accurate)
+	public GameObject Vesta;
+	private float VestaRadius =  530.0F;
 
-//uses fov to determine scale
+	void Start(){
+		if(cam == null){cam = Camera.main;}
+	}
+
 	void Update(){
-	fov = cam.fieldOfView;
-        RScale = (float)fov;
-        CurrentRulerLength.text = RScale.ToString();
+		cameraDistance = Vector3.Distance(cam.transform.position, Vesta.transform.position);
+
+	        RScale = VestaCircumference/(cameraDistance); 
+			//width of vesta from perspective of camera
+		RScale *= (uiRuler.sprite.rect.width/cam.pixelRect.width); 
+			//multiplied by the percentage of screen space taken up by the ruler
+	
+	        CurrentRulerLength.text = RScale.ToString();
  	}
 }
