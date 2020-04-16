@@ -6,24 +6,26 @@ using System;
 
 public class Ruler : MonoBehaviour { 
 	public Text CurrentRulerLength;
-	float  RScale, cameraDistance;
-	public Image uiRuler;
+	float  RScale, screenDiameter, pixelSize, distance;
+	public RectTransform uiRuler;
 	public Camera cam;
 	public GameObject Vesta;
-	private float VestaDiameter =  530.0F;
+	public float VestaDiameter;
 
 	void Start(){
+		if(VestaDiameter == 0){VestaDiameter =  530.0F; Debug.Log(VestaDiameter);}
 		if(cam == null){cam = Camera.main;}
+	
+		screenDiameter = Vesta.transform.GetComponentInChildren<Renderer>().bounds.extents.magnitude;
+		screenDiameter -= Vector3.Distance(Vesta.transform.position, Vector3.zero);
 	}
 
 	void Update(){
-		cameraDistance = Vector3.Distance(cam.transform.position, Vesta.transform.position);
+		distance = Vector3.Distance(Vesta.transform.position, cam.transform.position);
+		pixelSize = (screenDiameter * Mathf.Rad2Deg * Screen.height) / (distance * cam.fieldOfView);
+	        RScale = VestaDiameter*(pixelSize/uiRuler.sizeDelta.x);
 
-	        RScale = VestaDiameter/(cameraDistance); 
-			//width of vesta from perspective of camera
-		RScale *= (uiRuler.sprite.rect.width/cam.pixelRect.width); 
-			//multiplied by the percentage of screen space taken up by the ruler
-	
+		Debug.Log(pixelSize+","+screenDiameter);
 	        CurrentRulerLength.text = RScale.ToString();
  	}
 }
