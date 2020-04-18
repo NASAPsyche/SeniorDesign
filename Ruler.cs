@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 
 public class Ruler : MonoBehaviour { 
-	float  screenDiameter, RScale, distance;
+	float  screenDiameter, RScale, RLength, distance;
 	public Text CurrentRulerLength;
 	public RectTransform uiRuler;
 	public Camera cam;
@@ -16,14 +16,16 @@ public class Ruler : MonoBehaviour {
 		if(VestaDiameter == 0){VestaDiameter =  530.0F; Debug.Log(VestaDiameter);}
 		if(cam == null){cam = Camera.main;}
 
-		screenDiameter = Vesta.transform.GetComponentInChildren<Renderer>().bounds.size.magnitude;
-		RScale = VestaDiameter*(screenDiameter/uiRuler.sizeDelta.x);
+		screenDiameter = Vesta.transform.GetComponentInChildren<Renderer>().bounds.extents.magnitude;
+		RLength = uiRuler.sizeDelta.x;
+		RScale = VestaDiameter*(screenDiameter/RLength);
 
 	}
 
 	void Update(){
 		distance = Vector3.Distance(Vesta.transform.position, cam.transform.position);
-		RScale = (screenDiameter * Mathf.Rad2Deg * Screen.height) / (distance * cam.fieldOfView);
+		RScale = (screenDiameter * Mathf.Rad2Deg * Screen.height) /(distance * cam.fieldOfView);
+		RScale = VestaDiameter * RLength/RScale;  
 	        CurrentRulerLength.text = RScale.ToString();
 
 		Debug.Log(screenDiameter+", "+distance+", "+RScale);
